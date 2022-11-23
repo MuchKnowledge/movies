@@ -1,4 +1,4 @@
-package com.example.app.domain.useCases
+package com.example.app.domain.use_cases
 
 import com.example.app.data.models.MovieData
 import com.example.app.data.repositories.MoviesRepositoryImpl

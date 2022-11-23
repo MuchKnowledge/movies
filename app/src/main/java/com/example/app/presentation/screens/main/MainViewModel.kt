@@ -4,13 +4,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.app.data.models.MovieData
-import com.example.app.domain.useCases.SearchMoviesByTitleUseCase
+import com.example.app.domain.use_cases.SearchMoviesByTitleUseCase
+import com.example.app.domain.use_cases.UpdateLikeStatusUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val searchUseCase: SearchMoviesByTitleUseCase) : ViewModel() {
+class MainViewModel @Inject constructor(
+    private val searchUseCase: SearchMoviesByTitleUseCase,
+    private val updateLikeStatusUseCase: UpdateLikeStatusUseCase,
+) : ViewModel() {
 
     val state: MutableLiveData<MainScreenState> = MutableLiveData(MainScreenState.Init)
 
@@ -23,6 +27,18 @@ class MainViewModel @Inject constructor(private val searchUseCase: SearchMoviesB
                 result.isEmpty() -> state.value = MainScreenState.Empty
                 else -> state.value = MainScreenState.Loaded(result)
             }
+        }
+    }
+
+    fun updateLikeStatus(id: String, isLiked: Boolean) {
+        viewModelScope.launch {
+            updateLikeStatusUseCase.update(id, isLiked)
+        }
+    }
+
+    fun onBackButtonClicked() {
+        viewModelScope.launch {
+            state.value = MainScreenState.Init
         }
     }
 }

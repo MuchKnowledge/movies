@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">movies</string>
+
+    <string name="main_screen_top_bar_title">Movies</string>
+    <string name="main_screen_placeholder_init">Welcome!\nSet the search parameters</string>
+    <string name="main_screen_placeholder_empty">Whoops! Nothing is found. Try another search parameters</string>
+
+    <string name="search_bottom_sheet_title">Search</string>
+    <string name="search_bottom_sheet_first_cell_hint">Title</string>
+    <string name="search_bottom_sheet_second_cell_hint">Page</string>
+    <string name="search_bottom_sheet_button_text">Apply</string>
+
+    <string name="details_screen_top_bar_title">Movie info</string>
+    <string name="details_screen_comments_title">COMMENTS</string>
+    <string name="details_screen_comments_hint">Write your comment</string>
+    <string name="details_screen_button_text">Watch on IMDb</string>
+    <string name="details_screen_imdb_button_text">IMDb</string>
+    <string name="details_screen_title_first_cell">Genre</string>
+    <string name="details_screen_title_second_cell">Writer</string>
+    <string name="details_screen_title_third_cell">Language</string>
+    <string name="details_screen_title_fourth_cell">IMDb Rating</string>
 </resources>
