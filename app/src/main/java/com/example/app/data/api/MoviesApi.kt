@@ -12,11 +12,12 @@ interface MoviesApi {
     suspend fun searchMoviesByTitle(
         @Query("s") searchQuery: String,
         @Query("page") page: Int,
-        @Query("apikey") apiKey: String = "fade9ea2"
+        @Query("apikey") apiKey: String = "fade9ea2",
     ): SearchResponse
 
     @GET("/")
-    suspend fun loadMovieByTitle(
-        @Header("s") searchQuery: String,
+    suspend fun loadMovieById(
+        @Query("i") id: String,
+        @Query("apikey") apiKey: String = "fade9ea2",
     ): MovieResponse
 }

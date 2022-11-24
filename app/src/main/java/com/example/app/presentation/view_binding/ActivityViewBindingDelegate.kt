@@ -1,4 +1,4 @@
-package com.example.app.presentation.binding
+package com.example.app.presentation.view_binding
 
 import android.app.Activity
 import android.view.LayoutInflater

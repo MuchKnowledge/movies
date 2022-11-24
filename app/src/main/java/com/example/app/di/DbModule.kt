@@ -3,7 +3,6 @@ package com.example.app.di
 import android.content.Context
 import androidx.room.Room
 import com.example.app.data.db.base.Database
-import com.example.app.data.db.dao.CommentDao
 import com.example.app.data.db.dao.MoviesDao
 import dagger.Module
 import dagger.Provides
@@ -26,9 +25,4 @@ object DbModule {
     @Provides
     fun provideMoviesDao(database: Database): MoviesDao =
         database.moviesDao()
-
-    @Singleton
-    @Provides
-    fun provideCommentDao(database: Database): CommentDao =
-        database.commentDao()
 }
