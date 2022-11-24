@@ -8,36 +8,43 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import com.example.app.presentation.screens.main.MainViewModel
 import com.example.app.presentation.view_binding.viewBinding
+import com.example.app.utils.extension.roundCorners
 import com.example.movies.R
 import com.example.movies.databinding.BottomSheetSearchParamsBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SearchParamsBottomSheet : BottomSheetDialogFragment(R.layout.bottom_sheet_search_params) {
+class SearchParamsBottomSheet(
+    private val onClick: (String, Int) -> Unit
+) : BottomSheetDialogFragment(R.layout.bottom_sheet_search_params) {
 
-    private val mainViewModel: MainViewModel by viewModels()
     private val binding: BottomSheetSearchParamsBinding by viewBinding()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetDialog)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        initViews()
         initListener()
         initInputLayouts()
+    }
+
+    private fun initViews() {
+        with(binding) {
+            buttonApply.roundCorners(radius = 16f)
+        }
     }
 
     private fun initListener() {
         with(binding) {
             buttonApply.setOnClickListener {
-                mainViewModel.search(
-                    title = inputEditTitle.editableText.toString(),
-                    page = inputEditPage.editableText.toString().toInt()
+                onClick(
+                    inputEditTitle.editableText.toString(),
+                    inputEditPage.editableText.toString().toInt()
                 )
                 dismiss()
             }
@@ -46,16 +53,25 @@ class SearchParamsBottomSheet : BottomSheetDialogFragment(R.layout.bottom_sheet_
 
     private fun initInputLayouts() {
 //        must be better way
+        var isTitleTextValid = false
+        var isPageTextValid = false
         with(binding) {
-            val textWatcher = object : TextWatcher {
+            inputEditTitle.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
                 override fun afterTextChanged(s: Editable?) {
-                    buttonApply.isEnabled = s?.length!! >= 1
+                    isTitleTextValid = s?.length!! >= 1
+                    buttonApply.isEnabled = isPageTextValid && isTitleTextValid
                 }
-            }
-            inputEditTitle.addTextChangedListener(textWatcher)
-            inputEditPage.addTextChangedListener(textWatcher)
+            })
+            inputEditPage.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+                override fun afterTextChanged(s: Editable?) {
+                    isPageTextValid = s?.length!! >= 1
+                    buttonApply.isEnabled = isPageTextValid && isTitleTextValid
+                }
+            })
         }
     }
 }

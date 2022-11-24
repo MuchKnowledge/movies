@@ -63,7 +63,7 @@
         android:id="@+id/button_apply"
         style="?android:attr/selectableItemBackgroundBorderless"
         android:layout_width="0dp"
-        android:layout_height="62dp"
+        android:layout_height="48dp"
         android:layout_marginTop="8dp"
         android:background="@color/purple_700"
         android:enabled="false"

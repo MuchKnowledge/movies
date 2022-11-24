@@ -11,12 +11,12 @@ import com.example.app.data.models.MovieData
 import com.example.app.presentation.navigation.MainRouter
 import com.example.app.presentation.screens.details.DetailsActivity
 import com.example.app.presentation.view_binding.viewBinding
-import com.example.app.utils.extension.drawable
 import com.example.app.utils.extension.roundCorners
 import com.example.app.utils.quickInit
 import com.example.movies.R
 import com.example.movies.databinding.ActivityMainBinding
 import com.example.movies.databinding.ItemMoviesBinding
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -41,23 +41,30 @@ class MainActivity : AppCompatActivity() {
             when (it) {
                 MainScreenState.Init -> showInitState()
                 MainScreenState.Loading -> showLoadingState()
-                MainScreenState.Empty -> showEmptyState()
                 is MainScreenState.Loaded -> showLoadedState(it.movies)
+                is MainScreenState.Error -> showErrorState(it.message)
             }
         }
     }
 
     private fun initListeners() {
         with(binding.topBar) {
-            imageSearch.setOnClickListener { mainRouter.navigateToSearchParamsBottomSheet().show(supportFragmentManager, "") }
-            imageBack.setOnClickListener { viewModel.onBackButtonClicked() }
+            imageSearch.setOnClickListener {
+                mainRouter.navigateToSearchParamsBottomSheet(
+                    onClick = { title, page -> viewModel.search(title, page) }
+                ).show(supportFragmentManager, "")
+            }
+            imageBack.setOnClickListener { viewModel.setInitPosition() }
         }
     }
 
     private fun showInitState() {
         with(binding) {
             textPlaceholder.text = resources.getString(R.string.main_screen_placeholder_init)
-            viewModel.search("Sherlock", 2)
+            textPlaceholder.isVisible = true
+            topBar.imageBack.isVisible = false
+            recyclerMovies.isVisible = false
+            progress.isVisible = false
         }
     }
 
@@ -66,15 +73,6 @@ class MainActivity : AppCompatActivity() {
             textPlaceholder.isVisible = false
             topBar.imageBack.isVisible = false
             progress.isVisible = true
-        }
-    }
-
-    private fun showEmptyState() {
-        with(binding) {
-            textPlaceholder.text = resources.getString(R.string.main_screen_placeholder_empty)
-            textPlaceholder.isVisible = true
-            topBar.imageBack.isVisible = false
-            progress.isVisible = false
         }
     }
 
@@ -91,6 +89,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun showErrorState(text: String) {
+        with(binding) {
+            Snackbar.make(root, text, Snackbar.LENGTH_LONG).show()
+            viewModel.setInitPosition()
+        }
+    }
+
     private fun bindMovieItem(view: View, item: MovieData) {
         ItemMoviesBinding.bind(view).apply {
             root.roundCorners(radius = 16f)
@@ -104,21 +109,6 @@ class MainActivity : AppCompatActivity() {
             textTitle.text = item.title
             textYear.text = item.year
             textType.text = item.type
-
-            imageLike.setImageDrawable(
-                when (item.isLiked) {
-                    true -> drawable(R.drawable.ic_liked)
-                    false -> drawable(R.drawable.ic_unliked)
-                }
-            )
-            imageLike.setOnClickListener {
-                // should be changed
-                val imageLikeDrawable =
-                    if (imageLike.drawable == drawable(R.drawable.ic_liked)) drawable(R.drawable.ic_unliked)
-                    else drawable(R.drawable.ic_liked)
-                imageLike.setImageDrawable(imageLikeDrawable)
-                viewModel.updateLikeStatus(item.id, item.isLiked.not())
-            }
         }
     }
 

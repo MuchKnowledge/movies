@@ -58,18 +58,9 @@
         android:textColor="@color/grey"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/image_poster"
-        app:layout_constraintTop_toBottomOf="@id/text_year"
-        tools:text="Movie" />
-
-    <ImageView
-        android:id="@+id/image_like"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:src="@drawable/ic_unliked"
         app:layout_constraintBottom_toBottomOf="@id/image_poster"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/image_poster"
+        tools:text="Movie" />
 
     <TextView
         android:id="@+id/text_title_genre"
