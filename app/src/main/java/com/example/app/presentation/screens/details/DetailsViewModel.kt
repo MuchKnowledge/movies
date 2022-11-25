@@ -3,7 +3,6 @@ package com.example.app.presentation.screens.details
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.app.data.models.MovieData
 import com.example.app.domain.use_cases.LoadMovieByIdUseCase
 import com.example.app.domain.use_cases.UpdateLikeStatusUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,15 +24,4 @@ class DetailsViewModel @Inject constructor(
             state.value = DetailsScreenState.Loaded(result)
         }
     }
-
-    fun updateLikeStatus(id: String, isLiked: Boolean) {
-        viewModelScope.launch {
-            updateLikeStatusUseCase.update(id, isLiked)
-        }
-    }
-}
-
-sealed class DetailsScreenState {
-    object Loading : DetailsScreenState()
-    class Loaded(val movie: MovieData) : DetailsScreenState()
 }

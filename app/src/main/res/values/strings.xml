@@ -19,4 +19,5 @@
     <string name="details_screen_title_second_cell">Writer</string>
     <string name="details_screen_title_third_cell">Language</string>
     <string name="details_screen_title_fourth_cell">IMDb Rating</string>
+    <string name="search_params_tag">search_params_bottom_sheet</string>
 </resources>

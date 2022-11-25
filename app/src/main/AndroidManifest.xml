@@ -21,12 +21,17 @@
 
         <activity
             android:name="com.example.app.presentation.screens.main.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.app.presentation.screens.details.DetailsActivity" />
+        <activity
+            android:name="com.example.app.presentation.screens.details.DetailsActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
     </application>
 </manifest>
