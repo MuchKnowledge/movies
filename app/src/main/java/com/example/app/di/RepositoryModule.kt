@@ -18,9 +18,5 @@ object RepositoryModule {
     fun provideMoviesRepositoryImpl(
         moviesApi: MoviesApi,
         moviesDao: MoviesDao,
-    ): MoviesRepositoryImpl {
-        return MoviesRepositoryImpl(
-            moviesApi, moviesDao,
-        )
-    }
+    ): MoviesRepositoryImpl = MoviesRepositoryImpl(moviesApi, moviesDao)
 }
