@@ -7,7 +7,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.app.data.models.MovieData
-import com.example.app.presentation.navigation.MainRouter
+import com.example.app.presentation.bottom_sheets.search_params.SearchParamsBottomSheet
 import com.example.app.presentation.screens.details.DetailsActivity
 import com.example.app.presentation.view_binding.viewBinding
 import com.example.app.utils.extension.loadWithGlide
@@ -18,15 +18,12 @@ import com.example.movies.databinding.ActivityMainBinding
 import com.example.movies.databinding.ItemMoviesBinding
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val binding: ActivityMainBinding by viewBinding()
     private val viewModel: MainViewModel by viewModels()
-
-    @Inject lateinit var mainRouter: MainRouter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +51,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigateToSearchParamsBottomSheet() {
-        mainRouter.navigateToSearchParamsBottomSheet(onClick = { title, page -> viewModel.search(title, page) })
+        SearchParamsBottomSheet(onClick = { title, page -> viewModel.search(title, page) })
             .show(supportFragmentManager, getString(R.string.search_params_tag))
     }
 
