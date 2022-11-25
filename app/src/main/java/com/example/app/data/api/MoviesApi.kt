@@ -7,14 +7,14 @@ import retrofit2.http.Query
 
 interface MoviesApi {
 
-    @GET(".omdbapi.com/")
+    @GET(".")
     suspend fun searchMoviesByTitle(
         @Query("s") searchQuery: String,
         @Query("page") page: Int,
         @Query("apikey") apiKey: String = NETWORK_API_KEY,
     ): SearchResponse
 
-    @GET(".omdbapi.com/")
+    @GET(".")
     suspend fun loadMovieById(
         @Query("i") id: String,
         @Query("apikey") apiKey: String = NETWORK_API_KEY,
