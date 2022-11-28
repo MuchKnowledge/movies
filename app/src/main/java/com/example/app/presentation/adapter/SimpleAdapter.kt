@@ -26,10 +26,5 @@ class SimpleAdapter<Item>(
         bindItem(holder.itemView, item, position)
     }
 
-    fun updateData(levels: List<Item>) {
-        items = levels
-        notifyItemRangeChanged(0, items.size)
-    }
-
     class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 }
