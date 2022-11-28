@@ -6,27 +6,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
+    android:elevation="16dp"
     tools:context="com.example.app.presentation.screens.main.MainActivity">
 
     <include
         android:id="@+id/top_bar"
-        layout="@layout/top_bar_main"
+        layout="@layout/top_bar_details"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/text_placeholder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:gravity="center"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <include
+        android:id="@+id/include_poster"
+        layout="@layout/poster_details"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/top_bar"
-        tools:text="Hello World!" />
+        app:layout_constraintTop_toBottomOf="@id/top_bar" />
 
     <ProgressBar
         android:id="@+id/progress"
@@ -36,18 +34,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/top_bar"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_movies"
+    <Button
+        android:id="@+id/button_imdb"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:overScrollMode="never"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="24dp"
+        android:background="@color/purple_700"
+        android:text="@string/details_screen_button_text"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/top_bar"
-        tools:listitem="@layout/item_movies" />
+        app:layout_constraintEnd_toEndOf="@id/include_poster"
+        app:layout_constraintStart_toStartOf="@id/include_poster" />
 </androidx.constraintlayout.widget.ConstraintLayout>
