@@ -12,6 +12,7 @@ import com.example.app.presentation.screens.details.DetailsActivity
 import com.example.app.presentation.view_binding.viewBinding
 import com.example.app.utils.extension.loadWithGlide
 import com.example.app.utils.extension.roundCorners
+import com.example.app.utils.extension.safeClick
 import com.example.app.utils.quickInit
 import com.example.movies.R
 import com.example.movies.databinding.ActivityMainBinding
