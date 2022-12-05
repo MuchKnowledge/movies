@@ -1,7 +1,6 @@
 package com.example.app.di
 
 import com.example.app.data.api.MoviesApi
-import com.example.app.data.db.dao.MoviesDao
 import com.example.app.data.repositories.MoviesRepositoryImpl
 import dagger.Module
 import dagger.Provides
@@ -17,6 +16,5 @@ object RepositoryModule {
     @Provides
     fun provideMoviesRepositoryImpl(
         moviesApi: MoviesApi,
-        moviesDao: MoviesDao,
-    ): MoviesRepositoryImpl = MoviesRepositoryImpl(moviesApi, moviesDao)
+    ): MoviesRepositoryImpl = MoviesRepositoryImpl(moviesApi)
 }
